@@ -1,0 +1,17 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { decide, planInput, demoItems, makePlan, type Context } from '../lib/circular/domain.ts';
+const context:Context={setting:'home',city:'Lima',collection:['plastic','paper'],compost:false,reuse:true};
+const bottle={...demoItems[0],confirmed:true};
+test('human confirmation gates confident model predictions',()=>{assert.equal(decide({...bottle,confirmed:false},context).rule,'VERIFY-01');});
+test('confirmed material plus clean state plus declared channel permits separation',()=>{assert.equal(decide(bottle,context).rule,'RECYCLE-01');});
+test('removing a declared channel changes the decision',()=>{assert.equal(decide(bottle,{...context,collection:[]}).rule,'CHANNEL-01');});
+test('correcting plastic to hazardous overrides collection and reuse',()=>{assert.equal(decide({...bottle,material:'hazardous',condition:'reusable'},context).rule,'SAFE-01');});
+test('unknown material cannot be forced to recycling by confirmation',()=>{assert.equal(decide({...bottle,material:'unknown'},context).status,'review');});
+test('dirty packaging never receives ready-to-deliver recommendation',()=>{assert.equal(decide({...bottle,condition:'dirty'},context).rule,'PREP-01');});
+test('unknown state must be reviewed even with confirmed material',()=>{assert.equal(decide({...bottle,condition:'unknown'},context).rule,'VERIFY-02');});
+test('reuse precedes recycling only when reuse is available',()=>{const reusable={...bottle,condition:'reusable' as const};assert.equal(decide(reusable,context).rule,'REUSE-01');assert.equal(decide(reusable,{...context,reuse:false}).rule,'RECYCLE-01');});
+test('organic decisions change with compost access but still require acceptance',()=>{const organic={...bottle,material:'organic' as const};assert.equal(decide(organic,context).rule,'BIO-02');assert.equal(decide(organic,{...context,compost:true}).rule,'BIO-01');assert.equal(decide(organic,{...context,compost:true}).status,'review');});
+test('business output assigns accountability and requests delivery record',()=>{const d=decide(bottle,{...context,setting:'business'});assert.equal(d.owner,'Responsable de residuos');assert.match(d.steps.join(' '),/comprobante/);});
+test('schema rejects invalid input instead of silently deciding',()=>{for(const input of [{items:[],context},{items:[{...bottle,material:'magic'}],context},{items:[{...bottle,confidence:2}],context}])assert.equal(planInput.safeParse(input).success,false);});
+test('exportable plan preserves corrected inputs, context and rule version',()=>{const plan=makePlan({items:[bottle],context});assert.equal(plan.items[0].confirmed,true);assert.deepEqual(plan.context,context);assert.ok(plan.id);assert.match(plan.ruleVersion,/2026-11-04/);});
