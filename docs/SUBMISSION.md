@@ -16,7 +16,7 @@ Deadline target: November 4, 2026, 9:00 p.m. Lima. The official public event pag
 
 **Technical distinction:** Model output is validated and reviewed before ordinary ready-to-act recommendations. A deterministic policy separates perception from action, prioritizes specialized handling for hazardous/electronic materials, and never invents local service coverage. The export ties original proposals, corrected inputs, context and rule version together.
 
-**Current limitations:** No verified municipal acceptance database, calibrated confidence, measured carbon savings or verification of physical recycling. Business accountability is role-based guidance rather than a deployed enterprise system. Initial hosted access is private until judge access and usage controls are reviewed.
+**Current limitations:** No verified municipal acceptance database, calibrated confidence, measured carbon savings or verification of physical recycling. Business accountability is role-based guidance rather than a deployed enterprise system. Public demo access is enabled after durable global quotas: 6 inference attempts per minute and 120 per UTC day.
 
 **Repository:** https://github.com/jmiranda25/circularos-meta-hackathon
 

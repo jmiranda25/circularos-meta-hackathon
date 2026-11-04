@@ -46,7 +46,7 @@ Exports include original model proposals and request metadata when live percepti
 
 ## Security and limitations
 
-Meta credentials never enter the client bundle. Fixed upstream API origin prevents credential forwarding to arbitrary hosts. Photo inputs are inline images, not arbitrary URLs. Requests are bounded and provider timeouts have no retries. Errors do not forward provider bodies. No silent fixture fallback. Secrets are ignored by Git and stored as hosted runtime secrets. Initial hosted access is private; before a public live endpoint, add durable per-user quotas/rate limiting. A private prototype is not a production multi-tenant platform.
+Meta credentials never enter the client bundle. Fixed upstream API origin prevents credential forwarding to arbitrary hosts. Photo inputs are inline images, not arbitrary URLs. Requests are bounded and provider timeouts have no retries. Errors do not forward provider bodies. No silent fixture fallback. Secrets are ignored by Git and stored as hosted runtime secrets. The public demo has durable global quotas: 6 inference attempts per minute and 120 per UTC day. No IP addresses or user data are stored in the counter table. A private prototype is not a production multi-tenant platform.
 
 ## Delivery order
 

@@ -1,5 +1,6 @@
 import { perceive, segment } from '../../../lib/circular/perception';
 import { env } from 'cloudflare:workers';
+import { reserveInference } from '../../../lib/circular/quota';
 export async function POST(request:Request) {
   try {
     if(request.headers.get('origin') && new URL(request.headers.get('origin')!).host!==new URL(request.url).host) return Response.json({error:'Origen no permitido.'},{status:403});
@@ -11,6 +12,8 @@ export async function POST(request:Request) {
     const key=(env as unknown as Record<string,string>).MODEL_API_KEY || process.env.MODEL_API_KEY;
     if(!key) return Response.json({error:'La API de Meta aún no está configurada en el servidor. Puedes usar el ejemplo preparado o agregar objetos manualmente.',code:'META_NOT_CONFIGURED'},{status:503});
     if(mode==='segment' && (typeof label!=='string'||label.length<1||label.length>120)) return Response.json({error:'Selecciona un objeto.'},{status:400});
+    const quota=await reserveInference(env.DB);
+    if(!quota.allowed) return Response.json({error:quota.reason==='unavailable'?'La protección de uso no está disponible. Intenta más tarde.':quota.reason==='day'?'Se alcanzó el límite diario de la demo. Puedes seguir con el ejemplo preparado.':'La demo tiene varias solicitudes en curso. Espera un minuto y vuelve a intentar.'},{status:quota.reason==='unavailable'?503:429,headers:{'Retry-After':quota.reason==='day'?'3600':'60'}});
     const result=mode==='segment'?await segment(image,label,key):await perceive(image,key);
     return Response.json(result,{headers:{'Cache-Control':'no-store'}});
   } catch(error) {

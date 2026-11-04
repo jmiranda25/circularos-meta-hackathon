@@ -47,7 +47,7 @@ The app is in `app/`; core policy is `app/lib/circular/domain.ts`, provider call
 
 No municipal acceptance database, verified collection locations, calibrated confidence, measured carbon savings, physical sorting verification, accounts, payments or industrial equipment control. City is a user-provided label, not evidence of coverage. Recommendations use a conservative general policy, not jurisdiction-specific recycling rules. Consult the receiving operator before delivery. Actions marked complete are user reports, not verified recycling outcomes.
 
-Photographs and plans are not persisted by CircularOS; the selected photo is sent to Meta only when the user requests perception or segmentation. Meta's own service policies apply. Reloading loses session state unless the plan was exported. Live requests have timeouts and no automatic retries. Hosted access begins private to protect the credit budget; make the demo accessible to judges only after reviewing sharing and abuse controls.
+Photographs and plans are not persisted by CircularOS; the selected photo is sent to Meta only when the user requests perception or segmentation. Meta's own service policies apply. Reloading loses session state unless the plan was exported. Live requests have timeouts and no automatic retries. The public demo limits live perception to 6 attempts per minute and 120 per UTC day with atomic D1 counters; manual and prepared-example workflows remain available when limits are reached.
 
 ## Meta integration references
 
