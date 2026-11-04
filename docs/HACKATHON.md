@@ -81,3 +81,9 @@ User approved an English-first web camera/voice extension and a Lince pilot prop
 Broadened recognition beyond discarded packaging to held objects and worn accessories. Added textile and mixed material review categories, bounded visible-text transcription with Muse Spark, constrained JSON-schema output and actionable errors for empty/incomplete/invalid model results. SAM remains an optional geometry stage, not an OCR or material detector. Policy `.3` keeps textile/composite products out of ordinary recycling without dedicated receiving verification; electronics retain specialist routing.
 
 40 automated tests, TypeScript and both production builds pass. Live Meta tests on the user's screenshot photo regions identify a cap as textile and a cracked smartphone as electronic; logo plaque and reusable bottle identities are recognized with uncertain material retained. This is a small qualitative regression check, not an accuracy benchmark or evidence of municipal acceptance. User images and raw model responses are excluded from source control.
+
+## Multi-photo assessment and accessible plan delivery
+
+Fixed the one-photo limitation: users can photograph or upload additional products during review without replacing earlier objects, up to eight total. Each object retains the correct photo for SAM; the UI calls the operation “Highlight object”. Added readable PDF and print output, a secondary JSON technical export, optional audio preparation between stages with skip/timeout, and progress that does not treat unreviewed decisions as completed. No new provider, credential destination or verified collection/payment service was introduced.
+
+46 automated tests and local browser coverage verify the new flow, including two live photo analyses, preserved review, per-photo highlighting, prepared audio and PDF output. Actual phone camera capture still needs a physical-device check.
