@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./pilot.css";
 
 export const metadata: Metadata = {
   title: "CircularOS — Circular Intelligence",
-  description: "Convierte residuos en decisiones circulares trazables.",
+  description: "Turn materials into traceable circular decisions.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
@@ -16,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="en">
       <body className="antialiased">{children}</body>
     </html>
   );

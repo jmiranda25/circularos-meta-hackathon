@@ -1,0 +1,39 @@
+'use client';
+import { useEffect,useRef,useState } from 'react';
+import { Mic,Volume2,Square } from 'lucide-react';
+import { guidanceText,parseVoiceCommand,type VoiceCommand } from '../lib/circular/guidance';
+type Recognition={lang:string;continuous:boolean;interimResults:boolean;onresult:((event:{results:{[index:number]:{[index:number]:{transcript:string}}}})=>void)|null;onerror:((event:{error:string})=>void)|null;onend:(()=>void)|null;start:()=>void;abort:()=>void};
+type SpeechWindow=Window & {SpeechRecognition?:new()=>Recognition;webkitSpeechRecognition?:new()=>Recognition};
+export function VoiceGuide({step,objectCount,reviewCount,busy,guided,onGuided,onCommand}:{step:number;objectCount:number;reviewCount:number;busy:boolean;guided:boolean;onGuided:(v:boolean)=>void;onCommand:(v:VoiceCommand)=>void}){
+ const [language,setLanguage]=useState<'en'|'es'>('en'),[error,setError]=useState(''),[loading,setLoading]=useState(false),[supported,setSupported]=useState(false),[listening,setListening]=useState(false),[heard,setHeard]=useState(''),[url,setUrl]=useState('');
+ const audio=useRef<HTMLAudioElement>(null),recognition=useRef<Recognition|null>(null),cache=useRef(new Map<string,Blob>()),abort=useRef<AbortController|null>(null),timeout=useRef<ReturnType<typeof setTimeout>|null>(null);
+ const input={step,objectCount,reviewCount,language};
+ const text=guidanceText(input);
+ useEffect(()=>{const w=window as SpeechWindow;setSupported(!!(w.SpeechRecognition||w.webkitSpeechRecognition));return()=>{recognition.current?.abort();abort.current?.abort();if(timeout.current)clearTimeout(timeout.current);};},[]);
+ useEffect(()=>{audio.current?.pause();abort.current?.abort();recognition.current?.abort();setLoading(false);setError('');setHeard('');setUrl('');},[step,language]);
+ useEffect(()=>()=>{if(url)URL.revokeObjectURL(url);},[url]);
+ function stop(){audio.current?.pause();recognition.current?.abort();abort.current?.abort();setLoading(false);setListening(false);}
+ async function speak(){
+  if(loading)return;setError('');setLoading(true);recognition.current?.abort();
+  const controller=new AbortController();abort.current=controller;
+  try{const key=JSON.stringify(input);let blob=cache.current.get(key);if(!blob){const response=await fetch('/api/voice',{method:'POST',headers:{'Content-Type':'application/json'},body:key,signal:controller.signal});if(!response.ok){const data=await response.json() as {error:string};throw Error(data.error);}blob=await response.blob();if(cache.current.size>=12)cache.current.delete(cache.current.keys().next().value!);cache.current.set(key,blob);}if(controller.signal.aborted)return;audio.current?.pause();const nextUrl=URL.createObjectURL(blob);setUrl(nextUrl);if(audio.current){audio.current.src=nextUrl;await audio.current.play().catch(()=>setError('Your browser paused playback. Use the audio Play control below.'));}}
+  catch(e){if((e as Error).name!=='AbortError')setError((e as Error).message);}finally{if(abort.current===controller)setLoading(false);}
+ }
+ function listen(){
+  if(listening){recognition.current?.abort();return;}
+  setError('');setHeard('');audio.current?.pause();const w=window as SpeechWindow;const Constructor=w.SpeechRecognition||w.webkitSpeechRecognition;if(!Constructor)return;
+  const listener=new Constructor();recognition.current=listener;listener.lang=language==='es'?'es-PE':'en-US';listener.continuous=false;listener.interimResults=false;
+  listener.onresult=event=>{const transcript=event.results[0][0].transcript;setHeard(transcript);const command=parseVoiceCommand(transcript);if(command==='repeat')void speak();else if(command==='stop')stop();else if(command==='unknown')setError('Command not recognized. Try Next, Back, Repeat, Stop, Analyze or Camera.');else onCommand(command);};
+  listener.onerror=event=>{if(event.error!=='aborted')setError('Voice commands are unavailable or microphone access was not granted. Use the buttons instead.');};
+  listener.onend=()=>{setListening(false);if(timeout.current)clearTimeout(timeout.current);};
+  try{listener.start();setListening(true);timeout.current=setTimeout(()=>listener.abort(),12000);}catch{setListening(false);setError('The microphone could not start. Use the buttons instead.');}
+ }
+ return <section className="voice-guide" aria-label="Step-by-step assistance">
+  <div className="guide-heading"><div><span className="overline">STEP-BY-STEP ASSISTANCE</span><h2>One step at a time.</h2></div><label className="check-label"><input type="checkbox" checked={guided} onChange={e=>onGuided(e.target.checked)}/>Larger controls</label></div>
+  <p className="guide-transcript">{["Take a photo, review it, then select Analyze.","Review each object before adding your context.","Tell us which receiving channels you have confirmed.","Read the reasons, export your plan, or explore the Lince pilot."][step-1]}</p>
+  <div className="guide-actions"><label>Voice language<select value={language} onChange={e=>setLanguage(e.target.value as 'en'|'es')}><option value="en">English</option><option value="es">Spanish · Peru pilot</option></select></label><button className="secondary" disabled={loading||busy} onClick={speak}><Volume2 size={18}/>{loading?'Preparing voice…':'Listen / repeat'}</button><button className="secondary" disabled={!supported||busy||loading} onClick={listen}><Mic size={18}/>{listening?'Stop listening':'Voice command'}</button>{(url||loading||listening)&&<button className="secondary" onClick={stop}><Square size={16}/>Stop audio</button>}</div>
+  <audio ref={audio} controls={!!url} aria-label="Natural voice guidance"/>
+  <details className="guide-details"><summary>Full guide, commands and voice privacy</summary><p lang={language}>{text}</p><p className="small muted">Listening sends this fixed guide to ElevenLabs. Voice commands use your browser’s speech service and may send microphone audio to that provider. Nothing listens automatically. Commands: Next, Back, Repeat, Stop, Analyze, Camera. {supported?'':'Voice commands are not supported in this browser; all buttons remain available.'}</p></details>
+  {listening&&<p role="status">Listening for one command…</p>}{heard&&<p role="status">Heard: “{heard}”</p>}{error&&<p className="notice error" role="alert">{error}</p>}
+ </section>;
+}

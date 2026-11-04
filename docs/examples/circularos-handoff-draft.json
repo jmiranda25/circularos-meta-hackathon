@@ -1,0 +1,14 @@
+{
+  "kind": "non-binding-handoff-draft",
+  "pilot": "Lince, Lima, Peru",
+  "createdAt": "2026-11-04T15:33:49.857Z",
+  "material": "plastic",
+  "transport": "assisted",
+  "preference": "cash",
+  "estimatedKg": 2.5,
+  "status": "partner_required",
+  "verifiedWeightKg": null,
+  "partnerReceiptId": null,
+  "confirmedCompensationPEN": null,
+  "terms": "No receiving partner, tariff, pickup, delivery, payment or redeemable credit is confirmed by this draft."
+}

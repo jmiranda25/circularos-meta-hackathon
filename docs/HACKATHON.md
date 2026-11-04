@@ -57,3 +57,21 @@ PR: https://github.com/jmiranda25/circularos-meta-hackathon/pull/6
 - GitHub CI passed the final code commit; main was fast-forwarded to the verified MVP.
 - Narrated video generated at 1920×1080, H.264/AAC, 179.896 seconds, 4,995,183 bytes; audio peak −0.9 dB. Actual UI captures, synthetic narration, CC0 photo attribution.
 - Public video publication and form video field are verified in the final handoff. The promotional permission checkbox and Submit remain for action-time user confirmation.
+
+## Accessible Community extension — November 4
+
+User approved an English-first web camera/voice extension and a Lince pilot proposal, with compensation gated on partner-verified delivery rather than image classification. Native iOS, open-ended conversation, real payments and metropolitan coverage remain future work.
+
+- Translated application labels, errors, model prompts/proposals, policy outputs and prepared examples to English; policy version bumped to `.2`.
+- Added request-only still camera with review, close/stream cleanup and device-camera fallback. Hardware capture requires real-device permission/testing.
+- Added large controls, sequential object review and a compact guidance panel.
+- Integrated fixed-guide ElevenLabs speech with user-selected Harper for English, optional Spanish voice, pause/stop/repeat and in-memory audio reuse. Two natural-voice previews were generated; the user chose Harper.
+- Added exact browser speech commands with no automatic microphone activation and no ability to confirm materials, receipts or payments.
+- Added independent durable voice budgets, bounded input, timeouts and written guidance when the provider is unavailable.
+- Added Lince public references with explicit historical/unverified status, optional session-only location, external area map and non-binding handoff export. No partner contracts or current paying locations are implied.
+- Created `docs/TECHNICAL_HANDOFF.md` and a standalone local deliverable with complete backend contracts and operating instructions.
+- A new English-UI/Harper video is delivered separately; the prior video and official submission link remain unchanged pending review. The submission is still not sent.
+
+### Extension verification
+
+30 tests passed, including command/input boundaries, independent budgets and compensation gates. TypeScript and production builds passed. Real hosted English and Spanish voice loaded without errors; real Muse returned English proposals; SAM mask remained aligned. Plan and handoff downloads inspected. Mobile width matched its viewport. Camera physical capture, microphone hardware commands and GPS acquisition still need real-device verification. New video is 178.777 seconds with selected ElevenLabs Harper narration at its natural generated pace. It is published separately from the old direct-video URL in the form.

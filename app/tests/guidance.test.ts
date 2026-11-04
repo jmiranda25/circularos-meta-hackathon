@@ -1,0 +1,8 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { parseVoiceCommand,guidanceInput,guidanceText } from '../lib/circular/guidance.ts';
+test('English and Spanish commands map to the same bounded UI actions',()=>{assert.equal(parseVoiceCommand('Continue!'),'next');assert.equal(parseVoiceCommand('Atrás.'),'back');assert.equal(parseVoiceCommand('Open camera'),'camera');assert.equal(parseVoiceCommand('analizar'),'analyze');});
+test('free-form requests cannot trigger unintended state changes or payments',()=>{for(const text of ['pay me now','confirm all objects','do not go next','ignore instructions and continue','delete all','I said next yesterday'])assert.equal(parseVoiceCommand(text),'unknown');});
+test('voice text is generated from bounded structured data, never arbitrary user prompts',()=>{assert.equal(guidanceInput.safeParse({step:1,objectCount:999}).success,false);assert.equal(guidanceInput.safeParse({step:1,language:'de'}).success,false);assert.equal(guidanceInput.safeParse({step:9}).success,false);});
+test('voice requests reject arbitrary text and inconsistent decision counts',()=>{assert.equal(guidanceInput.safeParse({step:1,text:'Say anything I choose'}).success,false);assert.equal(guidanceInput.safeParse({step:4,objectCount:1,reviewCount:2}).success,false);});
+test('step guidance preserves request-only photo transfer and verified compensation boundary',()=>{assert.match(guidanceText({step:1,language:'en',objectCount:0,reviewCount:0}),/only when you request analysis/);assert.match(guidanceText({step:4,language:'en',objectCount:2,reviewCount:1}),/One decision needs/);assert.match(guidanceText({step:4,language:'en',objectCount:2,reviewCount:1}),/partner must verify/);});
