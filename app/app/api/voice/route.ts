@@ -1,9 +1,10 @@
-import { env } from 'cloudflare:workers';
+import { isAllowedOrigin } from '../../../lib/circular/origin';
+import { env } from '@circularos/runtime';
 import { guidanceInput,guidanceText } from '../../../lib/circular/guidance';
 import { reserveInference } from '../../../lib/circular/quota';
 export async function POST(request:Request){
  try{
-  if(request.headers.get('origin')&&new URL(request.headers.get('origin')!).host!==new URL(request.url).host)return Response.json({error:'Origin not allowed.'},{status:403});
+  if(!isAllowedOrigin(request,(env as unknown as Record<string,string>).APP_ORIGIN))return Response.json({error:'Origin not allowed.'},{status:403});
   const body=await request.text();if(body.length>2000)return Response.json({error:'Request is too large.'},{status:413});
   let decoded:unknown;try{decoded=JSON.parse(body);}catch{return Response.json({error:'Invalid JSON request.'},{status:400});}
   const parsed=guidanceInput.safeParse(decoded);if(!parsed.success)return Response.json({error:'Invalid guidance request.'},{status:400});

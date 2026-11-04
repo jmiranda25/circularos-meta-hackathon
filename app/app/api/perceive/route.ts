@@ -1,9 +1,10 @@
+import { isAllowedOrigin } from '../../../lib/circular/origin';
 import { perceive, segment } from '../../../lib/circular/perception';
-import { env } from 'cloudflare:workers';
+import { env } from '@circularos/runtime';
 import { reserveInference } from '../../../lib/circular/quota';
 export async function POST(request:Request) {
   try {
-    if(request.headers.get('origin') && new URL(request.headers.get('origin')!).host!==new URL(request.url).host) return Response.json({error:'Origin not allowed.'},{status:403});
+    if(!isAllowedOrigin(request,(env as unknown as Record<string,string>).APP_ORIGIN)) return Response.json({error:'Origin not allowed.'},{status:403});
     if(Number(request.headers.get('content-length'))>6_000_000) return Response.json({error:'Image is too large.'},{status:413});
     const text=await request.text();
     if(text.length>6_000_000) return Response.json({error:'Image is too large.'},{status:413});

@@ -44,6 +44,7 @@ export default defineConfig(async ({ command }) => {
   const { cloudflare } = await import("@cloudflare/vite-plugin");
 
   return {
+    resolve: { alias: { "@circularos/runtime": new URL("./lib/platform/cloudflare.ts", import.meta.url).pathname } },
     server: {
       ...(managedLinux
         ? { host: "0.0.0.0", allowedHosts: ["terminal.local"] }
