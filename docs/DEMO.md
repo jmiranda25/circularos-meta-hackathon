@@ -1,6 +1,8 @@
 # CircularOS — three-minute demo
 
-Record a genuine run with your own photo before final submission. Keep credentials, account panels and personal information out of the recording. Use English narration for an international audience; the prototype UI is Spanish.
+A 2:59.9 narrated walkthrough is available at https://circularos-jmiranda-hackathon.adaptableeasel.chatgpt.site/demo.html. It uses actual UI captures from a real hosted Muse Spark + SAM run, with synthetic English narration. It is an edited walkthrough, not an uninterrupted screen recording.
+
+For a replacement recording, use your own photo. Keep credentials, account panels and personal information out of the recording. Use English narration for an international audience; the prototype UI is Spanish.
 
 | Time | Screen | Narration |
 |---|---|---|

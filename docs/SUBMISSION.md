@@ -30,9 +30,9 @@ The final checkbox grants Meta and Cerebral Valley permission to use, publish, s
 
 **Repository:** https://github.com/jmiranda25/circularos-meta-hackathon
 
-**Demo URL:** Fill with the verified deployed URL and verify judge access.
+**Demo URL:** https://circularos-jmiranda-hackathon.adaptableeasel.chatgpt.site (public access verified without a session).
 
-**Video URL:** Pending recording/upload. A script is in DEMO.md.
+**Video URL:** https://circularos-jmiranda-hackathon.adaptableeasel.chatgpt.site/circularos-demo.mp4 (2:59.9, H.264/AAC, narrated edited walkthrough).
 
 ## Final checklist
 

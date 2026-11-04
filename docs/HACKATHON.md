@@ -46,3 +46,14 @@ Anonymous global D1 counters cap inference attempts at 6 per minute and 120 per 
 Demo: https://circularos-jmiranda-hackathon.adaptableeasel.chatgpt.site
 
 PR: https://github.com/jmiranda25/circularos-meta-hackathon/pull/6
+
+## Final delivery verification
+
+- Complete hosted live run with the CC0 sample: Muse Spark produced one bottle proposal; SAM produced one aligned box and mask using the generated English grounding prompt.
+- A human-edited scenario changed condition from dirty to clean; original and corrected values were preserved in the export. This models preparation, not a claim that the photographed object was physically cleaned.
+- Business plan produced RECYCLE-01; removing the plastic receiving channel invalidated the plan and regenerated CHANNEL-01. Completion tracking reset.
+- JSON export downloaded and inspected: live request metadata, original items, corrected items, SAM summary, rule version, context and completion IDs present. Sanitized example in `docs/examples/circularos-plan.json`.
+- Desktop 1440×1000 and mobile 390×844 reviewed; mobile content width matched viewport width with no horizontal overflow.
+- GitHub CI passed the final code commit; main was fast-forwarded to the verified MVP.
+- Narrated video generated at 1920×1080, H.264/AAC, 179.896 seconds, 4,995,183 bytes; audio peak −0.9 dB. Actual UI captures, synthetic narration, CC0 photo attribution.
+- Public video publication and form video field are verified in the final handoff. The promotional permission checkbox and Submit remain for action-time user confirmation.

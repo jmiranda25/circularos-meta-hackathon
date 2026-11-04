@@ -4,6 +4,8 @@
 
 **Live demo:** https://circularos-jmiranda-hackathon.adaptableeasel.chatgpt.site
 
+**Three-minute demo video:** https://circularos-jmiranda-hackathon.adaptableeasel.chatgpt.site/demo.html
+
 ## What works
 
 1. Upload JPG, PNG or WebP; the browser resizes it to at most 1600 px.

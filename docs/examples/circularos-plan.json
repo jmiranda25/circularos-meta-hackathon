@@ -1,0 +1,81 @@
+{
+  "id": "f39fa0a6-e280-46d9-a873-5be1732f8919",
+  "createdAt": "2026-11-04T13:55:56.628Z",
+  "ruleVersion": "circularos-general-2026-11-04.1",
+  "context": {
+    "setting": "business",
+    "city": "Lima",
+    "collection": [
+      "plastic"
+    ],
+    "compost": false,
+    "reuse": true
+  },
+  "items": [
+    {
+      "id": "b1",
+      "name": "Botella de plástico",
+      "material": "plastic",
+      "confidence": 0.95,
+      "evidence": "botella transparente aplastada con etiqueta roja y tapa roja sobre mesa, con restos de líquido",
+      "condition": "clean",
+      "confirmed": true,
+      "groundingPrompt": "plastic bottle"
+    }
+  ],
+  "decisions": [
+    {
+      "itemId": "b1",
+      "name": "Botella de plástico",
+      "owner": "Responsable de residuos",
+      "action": "Separar para entrega",
+      "rule": "RECYCLE-01",
+      "reason": "Material y estado confirmados, con un canal declarado disponible.",
+      "steps": [
+        "Mantener separado y seco.",
+        "Verificar con el operador su aceptación y horario antes de entregar.",
+        "Registrar cantidad y comprobante de entrega en el control interno."
+      ],
+      "status": "ready"
+    }
+  ],
+  "policy": "Guía general. Canales declarados por el usuario; aceptación local no verificada.",
+  "perception": {
+    "model": "muse-spark-1.3",
+    "requestId": "chatcmpl-01a1a6d6-e52a-7621-b6bb-a76666d707d2",
+    "usage": {
+      "completion_tokens": 583,
+      "prompt_tokens": 1710,
+      "total_tokens": 2293,
+      "completion_tokens_details": {
+        "reasoning_tokens": 515
+      },
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "latencyMs": 5318,
+    "originalItems": [
+      {
+        "id": "b1",
+        "name": "Botella de plástico",
+        "material": "plastic",
+        "confidence": 0.95,
+        "evidence": "botella transparente aplastada con etiqueta roja y tapa roja sobre mesa, con restos de líquido",
+        "condition": "dirty",
+        "groundingPrompt": "plastic bottle",
+        "confirmed": false
+      }
+    ],
+    "segmentation": {
+      "model": "sam-3.1",
+      "prompt": "plastic bottle",
+      "boxes": 1,
+      "masks": 1
+    }
+  },
+  "source": "meta-live",
+  "completedItemIds": [
+    "b1"
+  ]
+}
