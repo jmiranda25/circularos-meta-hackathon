@@ -1,6 +1,6 @@
 # Railway deployment · circulapp.la
 
-Status: deployed to Railway at https://circularos.circulapp.la with HTTPS and a persistent volume. Provider secrets configured privately with the user’s approval. Final live-provider validation is in progress. The earlier Sites deployment remains available as a fallback.
+Status: deployed to Railway at https://circularos.circulapp.la with HTTPS and a persistent volume. Provider secrets configured privately with the user’s approval. Live Muse Spark and SAM validation passed. The earlier Sites deployment remains available as a fallback.
 
 ## Runtime
 
@@ -12,7 +12,7 @@ The Node adapter replaces D1 with SQLite on a Railway persistent volume. Atomic 
 
 1. Create a Railway service from `jmiranda25/circularos-meta-hackathon`, using the reviewed deployment branch (then main after merge).
 2. Set **Root Directory** to `/app`; Dockerfile path is `Dockerfile`. The dashboard currently disallows new Config-as-Code configurations; set deployment options directly there. The checked-in `/app/railway.toml` documents the intended settings.
-3. Attach a persistent volume mounted at `/data`. Set `QUOTA_DB_PATH=/data/quota.sqlite` and `APP_ORIGIN=https://circularos.circulapp.la`. Keep one replica.
+3. Attach a persistent volume mounted at `/data`. Set `QUOTA_DB_PATH=/data/quota.sqlite` and `APP_ORIGIN=https://circularos.circulapp.la`. Enable outbound IPv6 and set `NODE_OPTIONS=--dns-result-order=ipv6first`. Keep one replica.
 4. Configure secret variables `MODEL_API_KEY`, `ELEVENLABS_API_KEY`, `ELEVENLABS_VOICE_ID`, optional `ELEVENLABS_VOICE_ID_ES`. Transfer values privately; do not put them in Git, logs or chat.
 5. Docker listens on `0.0.0.0` and honors Railway `PORT` (default 3000). Health check `/` validates page serving, not provider readiness. A service without keys or volume must not be considered ready for judges.
 6. Generate a Railway domain and verify image inference, SAM, voice, corrected decisions, export and video there before attaching the custom domain.
@@ -34,7 +34,9 @@ Add the custom domain to Railway and copy its exact CNAME target and ownership T
 - `/`, `/community-demo`, and `/circularos-community-demo.mp4` returned HTTP 200.
 - Invalid plan returned 400; voice without server secrets returned controlled 503.
 - Docker build on Railway, native startup, custom-domain HTTPS, the example decision flow and video playback passed.
-- Final live Meta/ElevenLabs tests are in progress.
+- Live Muse Spark classified the sample image and SAM produced the segmentation overlay on the custom domain.
+- Harper voice returned a valid MP3.
+- Railway outbound IPv6 must be enabled and `NODE_OPTIONS=--dns-result-order=ipv6first` must remain configured. IPv4 requests returned an empty Meta model catalog and model_not_found despite the identical key working elsewhere; after the IPv6 change the real Muse and SAM calls succeeded. This is an observed environment-specific routing difference, not proof of a revoked key or provider outage.
 
 ## Submission and rollback
 

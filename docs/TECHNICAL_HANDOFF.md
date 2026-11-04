@@ -8,7 +8,7 @@ Prepared November 4, 2026. Language: English. This document is intended to let a
 - Local checkout: `/Users/jhonmiranda/Documents/Codex/2026-11-04/referenced-chatgpt-conversation-this-is-an/circularos`
 - Application root: `circularos/app/`, not the repository root.
 - Current extension branch: `feat/accessible-community-pilot`. Inspect `git status` and `git log` before starting; do not assume all work is already merged.
-- Hosted app: https://circularos-jmiranda-hackathon.adaptableeasel.chatgpt.site
+- Hosted app: https://circularos.circulapp.la
 - Sites project: `appgprj_6aeb2e1bde408191bd4ab8cab47c9fd4`. Identity is tracked in `app/.openai/hosting.json`; preserve it.
 - The original MVP was merged through PR #6. This extension adds English UI/model output, camera, accessible review, voice, and a Lince community-pilot proposal.
 - Hackathon form: https://cerebralvalley.ai/e/meta-ai-developer-hackathon/hackathon/submit
@@ -282,6 +282,16 @@ Before changing anything: inspect branch/status; read AGENTS; understand which f
 - Source integration/deployment final commit IDs should be taken from git/log and the Sites deployment response; never infer them from this narrative.
 
 
-## Railway migration prepared (not deployed)
+## Railway production deployment
 
-See `docs/RAILWAY.md` for the native Node deployment target and proposed `circularos.circulapp.la` domain. The Cloudflare Sites deployment is unchanged. Railway needs a persistent volume, privately configured provider secrets, a live deployment check, and authoritative DNS changes before submission URLs can be replaced.
+The app is deployed at https://circularos.circulapp.la with HTTPS. See `docs/RAILWAY.md` for resource IDs, runtime architecture and recovery instructions. The earlier Sites deployment remains available as a fallback.
+
+Railway runs native Next.js on Node 22 using app/Dockerfile, root /app. The Cloudflare/Vinext build is retained independently. A platform alias selects Cloudflare D1 versus Node SQLite. The latter uses a persistent /data volume with QUOTA_DB_PATH=/data/quota.sqlite; use one replica. PORT=3000, HOSTNAME=0.0.0.0 and APP_ORIGIN=https://circularos.circulapp.la are explicitly set. Strict origin validation uses the configured public origin behind the proxy; it does not trust forwarded host headers.
+
+Meta and ElevenLabs keys were transferred privately with explicit user approval and are masked in Railway. Never print their values. Muse Spark and SAM real calls passed on the custom domain, as did the example decision flow, video playback and Harper audio. 35 tests passed, including origin validation and quota persistence across process restarts; TypeScript and both production builds pass.
+
+Important networking setting: enable Railway outbound IPv6 and keep NODE_OPTIONS=--dns-result-order=ipv6first. Initial IPv4 Meta calls returned HTTP 404 model_not_found and GET /v1/models returned an empty array. The deployed key was verified equal to the approved file through a digest comparison without displaying the key. That key and the older Sites deployment worked elsewhere. After the IPv6 change, real Muse Spark and SAM calls succeeded. Treat this as an observed routing compatibility requirement, not a definitive provider outage or invalid credential.
+
+Public video: https://circularos.circulapp.la/community-demo; MP4 /circularos-community-demo.mp4 (178.777018 seconds). The video uses earlier UI captures with generated Harper narration; live URLs now point to the user-owned domain.
+
+Official submission remains unsent. Promotional publication consent requires the user's final approval. Actual camera/microphone/GPS behavior on a physical phone remains unverified. Meta Voice Transcribe is not implemented; browser recognition remains the bounded command input.
