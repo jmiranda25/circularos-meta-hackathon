@@ -30,11 +30,19 @@ Test image: a public photograph of plastic bottles from Northwestern Now, downlo
 
 ## Verification
 
-- 12 policy tests passed, including incorrect/unknown input, human confirmation, safety precedence, contamination, missing channel, compost and business responsibility.
+- 18 tests passed (policy, durable quotas and mask placement), including incorrect/unknown input, human confirmation, safety precedence, contamination, missing channel, compost and business responsibility.
 - Browser: prepared example → reviewed objects → business context → plan; expected RECYCLE-01, PREP-01 and SAFE-01 appeared. Traceability expanded and completion toggle updated 0/3 to 1/3.
-- Production build succeeded. Final typecheck/build and deployment are recorded in the final delivery update.
+- Production build succeeded. Final TypeScript check and production build passed. Sites versions 1–3 deployed successfully; version 3 contains corrected source-pixel mask placement, English grounding prompts and a CC0 live-test photo. Public access was enabled at the user’s request.
 - Cursor Agent was invoked for read-only review, but authentication was absent. No Cursor review is claimed; Codex performed implementation and verification. Claude Code was not required.
 
 ## Outstanding delivery checks
 
-Official submission portal and its exact fields, final judge access, final video recording/upload, and portal confirmation remain separate from implementation. Keep this list accurate as each is completed.
+Official submission portal was opened in authenticated Chrome. Startups Track and Build for Your World are selected; technical copy and user-supplied required opinions are populated. The final video URL and the user-reviewed promotional permission / final Submit action remain pending.
+
+## Public demo hardening
+
+Anonymous global D1 counters cap inference attempts at 6 per minute and 120 per UTC day, using atomic SQL updates. Missing quota storage fails closed. No user IP, photo or plan is stored in the quota table. Browser QA discovered zero matches for a Spanish SAM concept; Muse now supplies an English grounding phrase while the UI stays Spanish. Visual QA also found crop-local mask paths; source-pixel translation and scaling are now applied and regression-tested.
+
+Demo: https://circularos-jmiranda-hackathon.adaptableeasel.chatgpt.site
+
+PR: https://github.com/jmiranda25/circularos-meta-hackathon/pull/6

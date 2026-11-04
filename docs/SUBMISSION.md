@@ -1,6 +1,16 @@
 # Submission preparation
 
-Deadline target: November 4, 2026, 9:00 p.m. Lima. The official public event page says 9:00 p.m. ET; on this date both are UTC−5. Reserve the last hour for access checks and form submission. The accepted participants' final rules and actual form are authoritative; three-minute video and public repository are user-supplied delivery requirements until verified against that form.
+Deadline target: November 4, 2026, 9:00 p.m. Lima. The official public event page says 9:00 p.m. ET; on this date both are UTC−5. Reserve the last hour for access checks and form submission. The accepted participants' final rules and actual form are authoritative; the authenticated form explicitly requires a public GitHub repository and a three-minute demo video.
+
+## Official form verified in the authenticated portal
+
+Portal: https://cerebralvalley.ai/e/meta-ai-developer-hackathon/hackathon/submit
+
+Selected by the user: **Startups Track**. Theme: **Build for Your World**. Team name entered: CircularOS. The logged-in user is present as team member. Required subjective responses supplied by the user: Very likely to build with Meta Model API; Very favorable overall opinion. Optional survey responses are left blank.
+
+Technical fields populated: Project Description, Public GitHub Repository, Meta product usage, model importance, partner technology feedback. The video URL is populated only after its publication is verified.
+
+The final checkbox grants Meta and Cerebral Valley permission to use, publish, share and promote the submitted materials. It must be reviewed by the user at the final action; do not accept it silently. No submission confirmation has been received.
 
 ## Suggested copy
 

@@ -7,6 +7,7 @@ export const itemSchema = z.object({
   confidence:z.number().min(0).max(1), evidence:z.string().max(600),
   condition:z.enum(['clean','dirty','reusable','unknown']),
   confirmed:z.boolean().default(false),
+  groundingPrompt:z.string().min(1).max(120).optional(),
 });
 export const contextSchema = z.object({
   setting:z.enum(['home','business']), city:z.string().min(1).max(100),

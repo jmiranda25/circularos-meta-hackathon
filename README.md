@@ -2,6 +2,8 @@
 
 **Circular Intelligence for Everyone.** A human-in-the-loop decision workflow that turns a waste photo into an actionable, auditable circular plan for a household or business.
 
+**Live demo:** https://circularos-jmiranda-hackathon.adaptableeasel.chatgpt.site
+
 ## What works
 
 1. Upload JPG, PNG or WebP; the browser resizes it to at most 1600 px.
@@ -22,8 +24,12 @@ cd app
 npm ci
 # Configure MODEL_API_KEY in a local untracked .dev.vars file:
 # MODEL_API_KEY=your-new-key
+npm run build
+node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js d1 execute DB --local --config dist/server/wrangler.json --persist-to .wrangler/state --file drizzle/0000_nappy_patriot.sql
 npm run dev
 ```
+
+Apply the local migration only once on a fresh local database. Hosted migrations are applied by Sites during deployment.
 
 Open the Local URL printed by the server (normally http://127.0.0.1:5173). `MODEL_API_KEY` stays server-side. Never paste a key into chat or commit it. Without a key, live perception returns an explicit configuration error; the prepared example and manual workflow remain available. They are visibly labeled and never presented as live inference.
 
