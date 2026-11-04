@@ -17,6 +17,7 @@ export function quotaDatabase() {
  return {prepare(sql:string){return {bind(...values:(string|number)[]){return {async first<T>(){return (database!.prepare(sql).get(...values) as T)??null;}};}};}};
 }
 export const env={
+ get APP_ORIGIN(){return process.env.APP_ORIGIN;},
  get DB(){return quotaDatabase();},
  get MODEL_API_KEY(){return process.env.MODEL_API_KEY;},
  get ELEVENLABS_API_KEY(){return process.env.ELEVENLABS_API_KEY;},

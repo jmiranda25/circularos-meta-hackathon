@@ -2,9 +2,9 @@
 
 **Circular Intelligence for Everyone.** A human-in-the-loop decision workflow that turns a waste photo into an actionable, auditable circular plan for a household or business.
 
-**Live demo:** https://circularos-jmiranda-hackathon.adaptableeasel.chatgpt.site
+**Live demo:** https://circularos.circulapp.la
 
-**Three-minute demo video:** https://circularos-jmiranda-hackathon.adaptableeasel.chatgpt.site/community-demo.html
+**Three-minute demo video:** https://circularos.circulapp.la/community-demo.html
 
 ## Accessible Community extension
 
