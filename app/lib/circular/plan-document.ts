@@ -14,7 +14,13 @@ export async function createPlanPdf(plan:Plan,done:string[]){
  const {jsPDF}=await import('jspdf');const pdf=new jsPDF({unit:'mm',format:'a4'});const margin=18,width=174;let y=22;
  function page(){pdf.addPage();y=22;}
  for(const section of planSections(plan,done)){
-  if(y>245)page();pdf.setFont('helvetica','bold');pdf.setFontSize(17);pdf.setTextColor(30,75,51);
+  pdf.setFont('helvetica','bold');pdf.setFontSize(17);
+  const headingLines=pdf.splitTextToSize(section.title,width) as string[];
+  pdf.setFont('helvetica','normal');pdf.setFontSize(12);
+  const sectionHeight=headingLines.length*8+3+section.lines.reduce((height,text)=>height+(pdf.splitTextToSize(text,width) as string[]).length*6+3,0)+7;
+  // Keep a normal object block together; oversized blocks may span pages.
+  if(y>245||(y>22&&sectionHeight<=253&&y+sectionHeight>278))page();
+  pdf.setFont('helvetica','bold');pdf.setFontSize(17);pdf.setTextColor(30,75,51);
   for(const line of pdf.splitTextToSize(section.title,width) as string[]){if(y>275)page();pdf.text(line,margin,y);y+=8;}
   y+=3;pdf.setFont('helvetica','normal');pdf.setFontSize(12);pdf.setTextColor(45,55,45);
   for(const text of section.lines){for(const line of pdf.splitTextToSize(text,width) as string[]){if(y>275)page();pdf.text(line,margin,y);y+=6;}y+=3;}y+=7;
