@@ -1,5 +1,5 @@
 import { isAllowedOrigin } from '../../../lib/circular/origin';
-import { perceive, segment } from '../../../lib/circular/perception';
+import { perceive, segment, PerceptionError } from '../../../lib/circular/perception';
 import { env } from '@circularos/runtime';
 import { reserveInference } from '../../../lib/circular/quota';
 export async function POST(request:Request) {
@@ -19,6 +19,7 @@ export async function POST(request:Request) {
     return Response.json(result,{headers:{'Cache-Control':'no-store'}});
   } catch(error) {
     // Never forward provider response bodies, headers, or credentials to clients/logs.
+    if(error instanceof PerceptionError) return Response.json({error:error.message,code:error.code},{status:error.code==='NO_OBJECTS'?422:502});
     const status=(error as {status?:number}).status;
     return Response.json({error:status===401?'Meta did not accept the server credential.':status===429?'Meta reached its usage limit. Please try later.':'Perception could not be completed. Check the image and try again.'},{status:502});
   }

@@ -295,3 +295,9 @@ Important networking setting: enable Railway outbound IPv6 and keep NODE_OPTIONS
 Public video: https://circularos.circulapp.la/community-demo; MP4 /circularos-community-demo.mp4 (178.777018 seconds). The video uses earlier UI captures with generated Harper narration; live URLs now point to the user-owned domain.
 
 Official submission remains unsent. Promotional publication consent requires the user's final approval. Actual camera/microphone/GPS behavior on a physical phone remains unverified. Meta Voice Transcribe is not implemented; browser recognition remains the bounded command input.
+
+## Perception expansion (policy .3)
+
+`Item.visibleText` optionally preserves up to 800 characters of untrusted, best-effort OCR, displayed in human review and included in exports. It never controls policy. `textile` and `mixed` extend the material vocabulary. `MATERIAL-01` requires a dedicated receiving check after human review and reuse consideration; ordinary collection selection cannot bypass it. Context UI still offers only paper, plastic, metal and glass.
+
+Muse uses constrained `json_schema` output. The prompt recognizes physical objects without requiring proof they are discarded, and distinguishes object identity from composition. `parsePerception` validates output, strips any model confirmation, rejects duplicates and raises safe typed errors. NO_OBJECTS returns HTTP 422; invalid/incomplete output returns 502 with a specific message. Provider bodies remain private. 40 tests and both builds passed. Live screenshot tests are limited qualitative checks, not general recognition validation.

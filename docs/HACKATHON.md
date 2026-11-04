@@ -75,3 +75,9 @@ User approved an English-first web camera/voice extension and a Lince pilot prop
 ### Extension verification
 
 30 tests passed, including command/input boundaries, independent budgets and compensation gates. TypeScript and production builds passed. Real hosted English and Spanish voice loaded without errors; real Muse returned English proposals; SAM mask remained aligned. Plan and handoff downloads inspected. Mobile width matched its viewport. Camera physical capture, microphone hardware commands and GPS acquisition still need real-device verification. New video is 178.777 seconds with selected ElevenLabs Harper narration at its natural generated pace. It is published separately from the old direct-video URL in the form.
+
+## Object perception correction — 4 November
+
+Broadened recognition beyond discarded packaging to held objects and worn accessories. Added textile and mixed material review categories, bounded visible-text transcription with Muse Spark, constrained JSON-schema output and actionable errors for empty/incomplete/invalid model results. SAM remains an optional geometry stage, not an OCR or material detector. Policy `.3` keeps textile/composite products out of ordinary recycling without dedicated receiving verification; electronics retain specialist routing.
+
+40 automated tests, TypeScript and both production builds pass. Live Meta tests on the user's screenshot photo regions identify a cap as textile and a cracked smartphone as electronic; logo plaque and reusable bottle identities are recognized with uncertain material retained. This is a small qualitative regression check, not an accuracy benchmark or evidence of municipal acceptance. User images and raw model responses are excluded from source control.
