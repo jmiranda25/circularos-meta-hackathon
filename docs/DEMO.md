@@ -1,3 +1,15 @@
+# Current Community demo
+
+English-UI / ElevenLabs Harper version: https://circularos-jmiranda-hackathon.adaptableeasel.chatgpt.site/community-demo.html
+
+Direct video: https://circularos-jmiranda-hackathon.adaptableeasel.chatgpt.site/circularos-community-demo.mp4
+
+Duration: 178.777 seconds; 1920×1080, H.264/AAC. The user selected Harper after two previews. Narration remains at its generated pace; segment durations follow the audio. Actual hosted UI captures show English Muse output, SAM, review, business context, traceable policy and the clearly labeled Lince proposal.
+
+The older `circularos-demo.mp4` remains available and its existing official-form link is untouched. Do not submit or replace the official-form video until the user explicitly resumes review.
+
+The earlier rehearsal script follows for historical context.
+
 # CircularOS — three-minute demo
 
 A 2:59.9 narrated walkthrough is available at https://circularos-jmiranda-hackathon.adaptableeasel.chatgpt.site/demo.html. It uses actual UI captures from a real hosted Muse Spark + SAM run, with synthetic English narration. It is an edited walkthrough, not an uninterrupted screen recording.

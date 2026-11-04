@@ -4,7 +4,17 @@
 
 **Live demo:** https://circularos-jmiranda-hackathon.adaptableeasel.chatgpt.site
 
-**Three-minute demo video:** https://circularos-jmiranda-hackathon.adaptableeasel.chatgpt.site/demo.html
+**Three-minute demo video:** https://circularos-jmiranda-hackathon.adaptableeasel.chatgpt.site/community-demo.html
+
+## Accessible Community extension
+
+The current interface, model proposals, policy decisions and errors are in English. Camera capture is request-only and followed by photo review. Larger controls and one-object-at-a-time review are enabled by default. Natural ElevenLabs guidance is available in English (Harper, selected by the user) and optionally Spanish; bounded browser voice commands have button alternatives.
+
+The free Community pilot starts in Lince, Lima, with older adults in mind. It includes optional browser location, an external area map, dated official programme references and a downloadable non-binding handoff draft with assisted transport and cash/product preferences. No CircularOS paying partners, tariffs, pickups, verified receipts or wallet balances have been established. Photos never create monetary value.
+
+See [Technical handoff for the next agent](docs/TECHNICAL_HANDOFF.md) for API contracts, policy precedence, quotas, runtime secrets, camera/voice lifecycle, deployment instructions and limitations.
+
+Voice environment keys: `ELEVENLABS_API_KEY` (secret), `ELEVENLABS_VOICE_ID` (English), `ELEVENLABS_VOICE_ID_ES` (optional Spanish). Meta and voice use separate durable D1 quotas: 6/minute and 120/day for Meta, 6/minute and 80/day for voice. The voice route accepts only bounded guide inputs, not arbitrary text.
 
 ## What works
 

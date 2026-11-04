@@ -3,22 +3,22 @@ import { env } from 'cloudflare:workers';
 import { reserveInference } from '../../../lib/circular/quota';
 export async function POST(request:Request) {
   try {
-    if(request.headers.get('origin') && new URL(request.headers.get('origin')!).host!==new URL(request.url).host) return Response.json({error:'Origen no permitido.'},{status:403});
-    if(Number(request.headers.get('content-length'))>6_000_000) return Response.json({error:'Imagen demasiado grande.'},{status:413});
+    if(request.headers.get('origin') && new URL(request.headers.get('origin')!).host!==new URL(request.url).host) return Response.json({error:'Origin not allowed.'},{status:403});
+    if(Number(request.headers.get('content-length'))>6_000_000) return Response.json({error:'Image is too large.'},{status:413});
     const text=await request.text();
-    if(text.length>6_000_000) return Response.json({error:'Imagen demasiado grande.'},{status:413});
+    if(text.length>6_000_000) return Response.json({error:'Image is too large.'},{status:413});
     const {image,mode,label}=JSON.parse(text);
-    if(typeof image!=='string' || !/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(image)) return Response.json({error:'Usa una imagen JPG, PNG o WebP.'},{status:400});
+    if(typeof image!=='string' || !/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(image)) return Response.json({error:'Use a JPG, PNG or WebP image.'},{status:400});
     const key=(env as unknown as Record<string,string>).MODEL_API_KEY || process.env.MODEL_API_KEY;
-    if(!key) return Response.json({error:'La API de Meta aún no está configurada en el servidor. Puedes usar el ejemplo preparado o agregar objetos manualmente.',code:'META_NOT_CONFIGURED'},{status:503});
-    if(mode==='segment' && (typeof label!=='string'||label.length<1||label.length>120)) return Response.json({error:'Selecciona un objeto.'},{status:400});
+    if(!key) return Response.json({error:'Meta is not configured on this server. Try the prepared example or add objects manually.',code:'META_NOT_CONFIGURED'},{status:503});
+    if(mode==='segment' && (typeof label!=='string'||label.length<1||label.length>120)) return Response.json({error:'Select an object.'},{status:400});
     const quota=await reserveInference(env.DB);
-    if(!quota.allowed) return Response.json({error:quota.reason==='unavailable'?'La protección de uso no está disponible. Intenta más tarde.':quota.reason==='day'?'Se alcanzó el límite diario de la demo. Puedes seguir con el ejemplo preparado.':'La demo tiene varias solicitudes en curso. Espera un minuto y vuelve a intentar.'},{status:quota.reason==='unavailable'?503:429,headers:{'Retry-After':quota.reason==='day'?'3600':'60'}});
+    if(!quota.allowed) return Response.json({error:quota.reason==='unavailable'?'Usage protection is unavailable. Please try later.':quota.reason==='day'?'The daily demo limit has been reached. You can still use the prepared example.':'The demo is busy. Wait a minute and try again.'},{status:quota.reason==='unavailable'?503:429,headers:{'Retry-After':quota.reason==='day'?'3600':'60'}});
     const result=mode==='segment'?await segment(image,label,key):await perceive(image,key);
     return Response.json(result,{headers:{'Cache-Control':'no-store'}});
   } catch(error) {
     // Never forward provider response bodies, headers, or credentials to clients/logs.
     const status=(error as {status?:number}).status;
-    return Response.json({error:status===401?'La credencial de Meta no fue aceptada. Revisa la configuración del servidor.':status===429?'Meta alcanzó su límite de uso. Espera y vuelve a intentar.':'No se pudo completar la percepción. Revisa la imagen e intenta nuevamente.'},{status:502});
+    return Response.json({error:status===401?'Meta did not accept the server credential.':status===429?'Meta reached its usage limit. Please try later.':'Perception could not be completed. Check the image and try again.'},{status:502});
   }
 }
