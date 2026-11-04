@@ -280,3 +280,8 @@ Before changing anything: inspect branch/status; read AGENTS; understand which f
 - New video: 178.777 seconds, 5,534,662 bytes, natural Harper narration without tempo acceleration. Separate URL: `/circularos-community-demo.mp4`; player: `/community-demo`. Older direct-video URL remains intact.
 - Counter-bucket retention cleanup is not implemented; the D1 table can accumulate dated keys. Add bounded cleanup and per-user quotas before production scale.
 - Source integration/deployment final commit IDs should be taken from git/log and the Sites deployment response; never infer them from this narrative.
+
+
+## Railway migration prepared (not deployed)
+
+See `docs/RAILWAY.md` for the native Node deployment target and proposed `circularos.circulapp.la` domain. The Cloudflare Sites deployment is unchanged. Railway needs a persistent volume, privately configured provider secrets, a live deployment check, and authoritative DNS changes before submission URLs can be replaced.

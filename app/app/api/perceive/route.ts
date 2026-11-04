@@ -1,5 +1,5 @@
 import { perceive, segment } from '../../../lib/circular/perception';
-import { env } from 'cloudflare:workers';
+import { env } from '@circularos/runtime';
 import { reserveInference } from '../../../lib/circular/quota';
 export async function POST(request:Request) {
   try {

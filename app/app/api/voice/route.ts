@@ -1,4 +1,4 @@
-import { env } from 'cloudflare:workers';
+import { env } from '@circularos/runtime';
 import { guidanceInput,guidanceText } from '../../../lib/circular/guidance';
 import { reserveInference } from '../../../lib/circular/quota';
 export async function POST(request:Request){
