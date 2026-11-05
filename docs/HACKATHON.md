@@ -87,3 +87,7 @@ Broadened recognition beyond discarded packaging to held objects and worn access
 Fixed the one-photo limitation: users can photograph or upload additional products during review without replacing earlier objects, up to eight total. Each object retains the correct photo for SAM; the UI calls the operation “Highlight object”. Added readable PDF and print output, a secondary JSON technical export, optional audio preparation between stages with skip/timeout, and progress that does not treat unreviewed decisions as completed. No new provider, credential destination or verified collection/payment service was introduced.
 
 46 automated tests and local browser coverage verify the new flow, including two live photo analyses, preserved review, per-photo highlighting, prepared audio and PDF output. Actual phone camera capture still needs a physical-device check.
+
+## Natural playback and refreshed product video
+
+Separated audio preparation from user-initiated playback to avoid delayed autoplay and source-reload interruptions. Browser checks confirmed play/stop/repeat without replacing the source or showing the prior generic error. Rebuilt the English product demo with Harper narration at natural speed, updated actual UI captures, captions and current product/pilot boundaries. Duration: 2:47.547. No submission was sent.
