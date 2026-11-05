@@ -38,3 +38,9 @@ The prepared example contains a bottle, dirty cardboard and a battery. It is vis
 - Include at least one real Muse Spark run, one SAM overlay, one human correction and one contextual decision change.
 - Open traceability and show the JSON export.
 - Upload the recording to a judge-accessible location, verify access outside your account, and paste the exact URL in the official form.
+
+## Updated review video
+
+Watch https://circularos.circulapp.la/community-demo (English captions available). Direct MP4: https://circularos.circulapp.la/circularos-community-demo.mp4
+
+Duration: **2:47.547**, 1920×1080, H.264/AAC. Natural-speed Harper narration covers multiple photos, Muse Spark, textile/electronic categories and visible text, SAM highlighting, human review, household/business context, versioned rules, prepared voice, readable PDF/print and the proposed free Lince pilot for older adults. Partner agreements, delivery verification and compensation remain explicitly future operational work. Captures are edited actual UI states rather than a continuous real-time recording.
